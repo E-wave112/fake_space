@@ -1,5 +1,6 @@
 import os
 import re
+import string
 import warnings
 warnings.filterwarnings('ignore')
 import boto3
@@ -9,6 +10,12 @@ import spacy
 from decouple import config
 from spacy.util import minibatch, compounding
 from spacy.lang.en.stop_words import STOP_WORDS
+from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
+from sklearn.base import TransformerMixin
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+##extract punctuation marks from the string
+punctuations = string.punctuation
 
 if sys.version_info[0] < 3: 
     from StringIO import StringIO # Python 2.x
@@ -48,6 +55,39 @@ def tokenize(text):
 def remove_stop(text):
     return ''.join([word for word in text if word.is_stop==False])
 
+
+data_process = df[['title','text','subject']]
+##apply the above helper functions
+# Creating our tokenizer function
+def spacy_tokenizer(sentence):
+    # Creating our token object, which is used to create documents with linguistic annotations.
+    tokens = spacy_eng_token(sentence)
+
+    # Lemmatizing each token and converting each token into lowercase
+    tokens_list = [ word.lemma_.lower().strip() if word.lemma_ != "-PRON-" else word.lower_ for word in tokens ]
+
+    # Removing stop words
+    mytokens = [ word for word in tokens_list if word not in stop_words and word not in punctuations ]
+
+    # return preprocessed list of tokens
+    return mytokens
+
+# Custom transformer using spaCy
+class predictors(TransformerMixin):
+    def transform(self, X, **transform_params):
+        # Cleaning Text
+        return [clean_text(text) for text in X],[remove_nums(text) for text in X],[remove_nicks_symbols(text) for text in X],[remove_url(text) for text in X]
+
+    def fit(self, X, y=None, **fit_params):
+        return self
+
+    def get_params(self, deep=True):
+        return {}
+
+# Basic function to clean the text
+def clean_text(text):
+    # Removing spaces and converting text into lowercase
+    return text.strip().lower()
 ##remove numbers/digits
 def remove_nums(text):
     return ''.join([word for word in text if not word.isdigit()])
@@ -61,14 +101,15 @@ def remove_url(text):
     return re.sub(r'https?://\S+|www\.\S+',"", text)
 
 
-data_process = df[['title','text','subject']]
-##apply the above helper functions
-data_process.applymap(lambda x:tokenize(x))
-data_process.applymap(lambda x:x.strip().lower() if type(x) == str else x)
-data_process.applymap(lambda x:remove_stop(x))
-data_process.applymap(lambda x:remove_nums(x))
-data_process.applymap(lambda x:remove_nicks_symbols(x))
-data_process.applymap(lambda x:remove_url(x))
+##create a vectorizer from the bag of words matrix for our texts
+bow_vector = CountVectorizer(tokenizer = spacy_tokenizer, ngram_range=(1,1))
+
+
 print(df.head())
+
+X=df[['title','text','subject']]
+y=df['Type']
+
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,shuffle=True,random_state=10)
 
 
