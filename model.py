@@ -33,15 +33,17 @@ csv_body = csv_object['Body']
 csv_string = csv_body.read().decode('utf-8')
 
 df = pd.read_csv(StringIO(csv_string))
-##print the head and shape of the data
-print(df.head())
-print(df.info())
 ##drop the date column
 df.drop(['date'],axis=1,inplace=True)
+##print the head and shape of the data
+print(df.info())
 ##load the english nlp pipeline
 spacy_eng_token = spacy.load('en_core_web_sm')
 
 ##data cleansing and preprocessing
+##tokenize the words
+def tokenize(text):
+    return spacy_eng_token(text)
 #remove stop words
 def remove_stop(text):
     return ''.join([word for word in text if word.is_stop==False])
@@ -57,3 +59,16 @@ def remove_nicks_symbols(text):
 def remove_url(text):
     # url = re.compile(r'https?://\S+|www\.\S+')
     return re.sub(r'https?://\S+|www\.\S+',"", text)
+
+
+data_process = df[['title','text','subject']]
+##apply the above helper functions
+data_process.applymap(lambda x:tokenize(x))
+data_process.applymap(lambda x:x.strip().lower() if type(x) == str else x)
+data_process.applymap(lambda x:remove_stop(x))
+data_process.applymap(lambda x:remove_nums(x))
+data_process.applymap(lambda x:remove_nicks_symbols(x))
+data_process.applymap(lambda x:remove_url(x))
+print(df.head())
+
+
