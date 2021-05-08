@@ -13,7 +13,8 @@ from spacy.lang.en.stop_words import STOP_WORDS
 from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
 from sklearn.base import TransformerMixin
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split,KFold,cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 ##extract punctuation marks from the string
 punctuations = string.punctuation
 
@@ -67,7 +68,7 @@ def spacy_tokenizer(sentence):
     tokens_list = [ word.lemma_.lower().strip() if word.lemma_ != "-PRON-" else word.lower_ for word in tokens ]
 
     # Removing stop words
-    mytokens = [ word for word in tokens_list if word not in stop_words and word not in punctuations ]
+    mytokens = [ word for word in tokens_list if word not in STOP_WORDS and word not in punctuations ]
 
     # return preprocessed list of tokens
     return mytokens
@@ -104,12 +105,31 @@ def remove_url(text):
 ##create a vectorizer from the bag of words matrix for our texts
 bow_vector = CountVectorizer(tokenizer = spacy_tokenizer, ngram_range=(1,1))
 
+##apply these functions to the dataset
+data_process.applymap(lambda x:spacy_tokenizer(x))
+data_process.apply(lambda x:clean_text(x))
+data_process.apply(lambda x:remove_nums(x))
+data_process.apply(lambda x:remove_nicks_symbols(x))
+data_process.apply(lambda x:remove_url(x))
+print(data_process.head())
 
-print(df.head())
-
-X=df[['title','text','subject']]
+X=data_process
 y=df['Type']
 
-X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,shuffle=True,random_state=10)
+rnd_clf = RandomForestClassifier()
+cv = KFold(n_splits=5, random_state=42, shuffle=True)
+
+##perform kfold cv
+print('preparing to split')
+for train_index,test_index in cv.split(X):
+    print('split started')
+    print(train_index,test_index)
+    X_train,X_test,y_train,y_test = X.iloc[train_index],X.iloc[test_index],y.iloc[train_index],y.iloc[test_index]
+    rnd_clf.fit(X_train, y_train)
+    print(cross_val_score(rnd_clf, X, Y, cv=5))
+
+
+
+# X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,shuffle=True,random_state=10)
 
 
