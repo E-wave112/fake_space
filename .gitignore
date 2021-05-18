@@ -3,3 +3,6 @@ todo.md
 *.csv
 News_dataset/
 test.py
+pydant.py
+
+__pycache__/

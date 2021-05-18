@@ -31,10 +31,10 @@ client = boto3.client('s3', aws_access_key_id=AWS_ID,
 bucket_name = 'edjangobucket'
 object_key_joblib='fast.joblib'
 
+joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
 
 def predict(text):
     ##load the joblib pretrained model from s3
-    joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
     joblib_body=joblib_load['Body']
     joblib_obj=joblib_body.read()
     job_load_model=joblib.load(BytesIO(joblib_obj))
