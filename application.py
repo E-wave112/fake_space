@@ -19,6 +19,10 @@ class NewsModel(BaseModel):
     text:str
     subject:str
 
+class PredictedModel(BaseModel):
+    text:str
+    prediction:int
+
 
 app = FastAPI(
  title="Fake News predictor",
@@ -28,7 +32,7 @@ app = FastAPI(
 )
 
 
-@app.post('/predict',status_code=200,tags=['predict'])
+@app.post('/predict',status_code=200,response_model=PredictedModel,tags=['predict'])
 async def predict_model(text_inputs:NewsModel,email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
     title = text_inputs.title
     text = text_inputs.text
@@ -39,5 +43,8 @@ async def predict_model(text_inputs:NewsModel,email:Optional[str]=Query('joane@d
     if not prediction_res:
         raise HTTPException(status_code=404,detail="model not found")
 
-    return {"results":prediction_res}
+    PredictedModel.text = text
+    PredictedModel.prediction = prediction_res
+
+    return {"results":PredictedModel.prediction}
 
