@@ -3,17 +3,19 @@ from typing import Optional,List,Dict
 from pydantic import BaseModel
 from decouple import config
 import numpy as np
-from model import joblib_load
+from model import predict
 import joblib
 import dill
 import sys
+import transform
+from transform import predictors
 
 if sys.version_info[0] < 3: 
     from StringIO import StringIO # Python 2.x
     from BytesIO import BytesIO # Python 2.x
 else:
     from io import StringIO,BytesIO # Python 3.x
-
+   
 
 ##data fields 
 ##data_process = df[['title','text','subject']]
@@ -35,7 +37,7 @@ class PredictedModel(BaseModel):
 
 
 app = FastAPI(
- title="Fake News predictor",
+title="Fake News predictor",
     description="A Machine learning model built with FastAPI that predicts if a certain news is bogus(fake) or genuine",
     version="1.0.0",
     openapi_tags=tags_metadata
@@ -43,16 +45,20 @@ app = FastAPI(
 
 
 
-def predict(title,text,subject):
-    ##load the joblib pretrained model from s3
-    joblib_body=joblib_load['Body']
-    joblib_obj=joblib_body.read()
-    job_load_model=dill.load(BytesIO(joblib_obj))
-    args_array = np.array([title,text,subject])
-    text_predict=job_load_model.predict(args_array)
-    return text_predict
+
+
 
 # response_model=PredictedModel
+
+# if __name__=='__main__':
+#     def predict(title,text,subject):
+#         ##load the joblib pretrained model from s3
+#         joblib_body=joblib_load['Body']
+#         joblib_obj=joblib_body.read()
+#         job_load_model=joblib.load(BytesIO(joblib_obj))
+#         args_array = np.array([title,text,subject])
+#         text_predict=job_load_model.predict(args_array)
+#         return text_predict
 
 @app.post('/predict',status_code=200,tags=['predict'])
 async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
@@ -60,8 +66,7 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
     text = text_inputs.text
     subject = text_inputs.subject
 
-    labels_pred = np.array([title,text,subject])
-
+    # labels_pred = np.array([title,text,subject])
     prediction_res = predict(title,text,subject)
 
     if not prediction_res:

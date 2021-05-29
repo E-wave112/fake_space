@@ -26,7 +26,8 @@ from sklearn.pipeline import Pipeline
 # from spacy.lang.en import English
 ##extract punctuation marks from the string
 punctuations = string.punctuation
-import dill
+import transform
+from transform import predictors
 
 if sys.version_info[0] < 3: 
     from StringIO import StringIO # Python 2.x
@@ -34,26 +35,45 @@ if sys.version_info[0] < 3:
 else:
     from io import StringIO,BytesIO # Python 3.x
 
+if __name__ == '__main__':
+    AWS_ID = config('AWS_ID')
+    AWS_SECRET_KEY = config('AWS_SECRET_KEY')
+
+    ##use the boto3 sdk to integrate python and aws s3
+    client = boto3.client('s3', aws_access_key_id=AWS_ID,
+            aws_secret_access_key=AWS_SECRET_KEY)
+
+    ##get the object name and the object key(the actual .csv file)
+    bucket_name = 'edjangobucket'
+    object_key_joblib='fast.joblib'
+    joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
+    ##load the joblib pretrained model from s3
+    joblib_body=joblib_load['Body']
+    joblib_obj=joblib_body.read()
+    job_load_model=joblib.load(BytesIO(joblib_obj))
+
+
 ##set your credentials and secret
-AWS_ID = config('AWS_ID')
-AWS_SECRET_KEY = config('AWS_SECRET_KEY')
+# AWS_ID = config('AWS_ID')
+# AWS_SECRET_KEY = config('AWS_SECRET_KEY')
 
-##use the boto3 sdk to integrate python and aws s3
-client = boto3.client('s3', aws_access_key_id=AWS_ID,
-        aws_secret_access_key=AWS_SECRET_KEY)
+# ##use the boto3 sdk to integrate python and aws s3
+# client = boto3.client('s3', aws_access_key_id=AWS_ID,
+#         aws_secret_access_key=AWS_SECRET_KEY)
 
-##get the object name and the object key(the actual .csv file)
-bucket_name = 'edjangobucket'
-object_key_joblib='fast.joblib'
+# ##get the object name and the object key(the actual .csv file)
+# bucket_name = 'edjangobucket'
+# object_key_joblib='fast.joblib'
 
-joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
+# joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
 
-# def predict(text):
-#     ##load the joblib pretrained model from s3
-#     joblib_body=joblib_load['Body']
-#     joblib_obj=joblib_body.read()
-#     job_load_model=joblib.load(BytesIO(joblib_obj))
-#     # args_array = np.array([title,text,subject])
-#     text_predict=job_load_model.predict(text)
-#     return text_predict
+
+def predict(title,text,subject):
+    ##load the joblib pretrained model from s3
+    # joblib_body=joblib_load['Body']
+    # joblib_obj=joblib_body.read()
+    # job_load_model=joblib.load(BytesIO(joblib_obj))
+    args_array = np.array([title,text,subject])
+    text_predict=job_load_model.predict(args_array)
+    return text_predict
 
