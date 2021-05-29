@@ -10,6 +10,7 @@ warnings.filterwarnings('ignore')
 import boto3
 import sys
 from decouple import config
+import numpy as np
 import pandas as pd
 ##extract punctuation marks from the string
 import spacy
@@ -25,6 +26,7 @@ from sklearn.pipeline import Pipeline
 # from spacy.lang.en import English
 ##extract punctuation marks from the string
 punctuations = string.punctuation
+import dill
 
 if sys.version_info[0] < 3: 
     from StringIO import StringIO # Python 2.x
@@ -46,11 +48,12 @@ object_key_joblib='fast.joblib'
 
 joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
 
-def predict(text):
-    ##load the joblib pretrained model from s3
-    joblib_body=joblib_load['Body']
-    joblib_obj=joblib_body.read()
-    job_load_model=joblib.load(BytesIO(joblib_obj))
-    text_predict=job_load_model.predict(text)
-    return text_predict
+# def predict(text):
+#     ##load the joblib pretrained model from s3
+#     joblib_body=joblib_load['Body']
+#     joblib_obj=joblib_body.read()
+#     job_load_model=joblib.load(BytesIO(joblib_obj))
+#     # args_array = np.array([title,text,subject])
+#     text_predict=job_load_model.predict(text)
+#     return text_predict
 
