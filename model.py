@@ -40,7 +40,7 @@ AWS_SECRET_KEY = config('AWS_SECRET_KEY')
 client = boto3.client('s3', aws_access_key_id=AWS_ID,
         aws_secret_access_key=AWS_SECRET_KEY)
 
-##get the object name and the object key(the actual .csv file)
+##get the object name and the object key(the actual .joblib file)
 bucket_name = 'edjangobucket'
 object_key_joblib='fast.joblib'
 
