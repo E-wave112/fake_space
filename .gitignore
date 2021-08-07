@@ -4,5 +4,6 @@ todo.md
 News_dataset/
 test.py
 pydant.py
+*.sh
 
 __pycache__/
