@@ -1,6 +1,6 @@
 '''
 this module directly predicts whether a news is fake or not from a pretrained joblib file
-find the actual model in this repository link : https://github.com/E-wave112/ml_proj_2/blob/master/fake_news_models.ipynb
+find the actual model in this repository link : https://github.com/E-wave112/ml_proj1/blob/master/aws_nlp.ipynb
 '''
 
 import joblib
