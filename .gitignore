@@ -4,5 +4,7 @@ todo.md
 News_dataset/
 test.py
 pydant.py
-.vscode/
+*.sh
+
 __pycache__/
+.vscode
