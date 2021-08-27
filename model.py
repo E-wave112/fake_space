@@ -29,28 +29,30 @@ punctuations = string.punctuation
 import transform
 from transform import predictors
 
+# load model
+
 if sys.version_info[0] < 3: 
     from StringIO import StringIO # Python 2.x
     from BytesIO import BytesIO # Python 2.x
 else:
     from io import StringIO,BytesIO # Python 3.x
 
-if __name__ == '__main__':
-    AWS_ID = config('AWS_ID')
-    AWS_SECRET_KEY = config('AWS_SECRET_KEY')
 
-    ##use the boto3 sdk to integrate python and aws s3
-    client = boto3.client('s3', aws_access_key_id=AWS_ID,
-            aws_secret_access_key=AWS_SECRET_KEY)
+AWS_ID = config('AWS_ID')
+AWS_SECRET_KEY = config('AWS_SECRET_KEY')
 
-    ##get the object name and the object key(the actual .csv file)
-    bucket_name = 'edjangobucket'
-    object_key_joblib='fast.joblib'
-    joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
-    ##load the joblib pretrained model from s3
-    joblib_body=joblib_load['Body']
-    joblib_obj=joblib_body.read()
-    job_load_model=joblib.load(BytesIO(joblib_obj))
+##use the boto3 sdk to integrate python and aws s3
+client = boto3.client('s3', aws_access_key_id=AWS_ID,
+        aws_secret_access_key=AWS_SECRET_KEY)
+
+##get the object name and the object key(the actual .csv file)
+bucket_name = 'edjangobucket'
+object_key_joblib='fast.joblib'
+joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
+##load the joblib pretrained model from s3
+joblib_body=joblib_load['Body']
+joblib_obj=joblib_body.read()
+job_load_model=joblib.load(BytesIO(joblib_obj))
 
 
 ##set your credentials and secret
