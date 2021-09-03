@@ -26,7 +26,7 @@ client = boto3.client('s3', aws_access_key_id=AWS_ID,
 
 ##get the object name and the object key(the actual .joblib file)
 bucket_name = 'edjangobucket'
-object_key_joblib='fast.joblib'
+object_key_joblib='nlp_model.h5'
 joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
 ##load the joblib pretrained model from s3
 joblib_body=joblib_load['Body']
