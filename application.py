@@ -3,18 +3,6 @@ from typing import Optional,List,Dict
 from pydantic import BaseModel
 from decouple import config
 import numpy as np
-from model import predict
-import joblib
-import dill
-import sys
-import transform
-from transform import predictors
-
-if sys.version_info[0] < 3: 
-    from StringIO import StringIO # Python 2.x
-    from BytesIO import BytesIO # Python 2.x
-else:
-    from io import StringIO,BytesIO # Python 3.x
    
 
 ##data fields 
@@ -50,14 +38,15 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
     text = text_inputs.text
     subject = text_inputs.subject
 
-    # labels_pred = np.array([title,text,subject])
-    prediction_res = predict(title,text,subject)
+    # todo import the correct predictor
+    # # labels_pred = np.array([title,text,subject])
+    # prediction_res = predict(title,text,subject)
 
-    if not prediction_res:
-        raise HTTPException(status_code=404,detail="model not found")
+    # if not prediction_res:
+    #     raise HTTPException(status_code=404,detail="model not found")
 
-    PredictedModel.text = text
-    PredictedModel.prediction = prediction_res
+    # PredictedModel.text = text
+    # PredictedModel.prediction = prediction_res
 
-    return {"results":prediction_res}
+    return {"results":"hello friend"}
 

@@ -5,6 +5,8 @@ News_dataset/
 test.py
 pydant.py
 *.sh
+test_s3.py
+transform.py
 
 __pycache__/
 .vscode
