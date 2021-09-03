@@ -34,21 +34,6 @@ joblib_obj=joblib_body.read()
 job_load_model=joblib.load(BytesIO(joblib_obj))
 
 
-##set your credentials and secret
-# AWS_ID = config('AWS_ID')
-# AWS_SECRET_KEY = config('AWS_SECRET_KEY')
-
-# ##use the boto3 sdk to integrate python and aws s3
-# client = boto3.client('s3', aws_access_key_id=AWS_ID,
-#         aws_secret_access_key=AWS_SECRET_KEY)
-
-# ##get the object name and the object key(the actual .csv file)
-# bucket_name = 'edjangobucket'
-# object_key_joblib='fast.joblib'
-
-# joblib_load=client.get_object(Bucket=bucket_name,Key=object_key_joblib)
-
-
 def predict(title,text,subject):
     ##load the joblib pretrained model from s3
     # joblib_body=joblib_load['Body']
