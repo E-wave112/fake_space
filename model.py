@@ -18,12 +18,12 @@ AWS_SECRET_KEY = config('AWS_SECRET_KEY')
 # create a helper function for accessing our cloud based s3 filesystem
 BUCKET_NAME="edjangobucket"
 
-
 def get_aws3_fs():
   return s3fs.S3FileSystem(key=AWS_ID,secret=AWS_SECRET_KEY)
 
 
-def s3_get_keras_model(model_name: str):
+# helper function to load our model from s3
+def s3_load_keras_model(model_name: str):
       with tempfile.TemporaryDirectory() as tempdir:
         s3fs = get_aws3_fs()
         # Fetch and save the zip file to the temporary directory
@@ -32,8 +32,10 @@ def s3_get_keras_model(model_name: str):
         return keras.models.load_model(f"{tempdir}/{model_name}.h5")
 
 
-# def predict(title,text,subject):
-#     args_array = np.array([title,text,subject])
-#     text_predict=job_load_model.predict(args_array)
-#     return text_predict
+# predictor helper function
+def predict(title,text,subject):
+    args_array = np.array([title,text,subject])
+    loaded_model = s3_load_keras_model("my_model")
+    text_predict=loaded_model.predict(args_array)
+    return text_predict
 
