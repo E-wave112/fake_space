@@ -7,6 +7,8 @@ import warnings
 warnings.filterwarnings('ignore')
 from decouple import config
 import numpy as np
+import s3fs
+import keras
     
 
 
@@ -19,6 +21,15 @@ BUCKET_NAME="edjangobucket"
 
 def get_aws3_fs():
   return s3fs.S3FileSystem(key=AWS_ID,secret=AWS_SECRET_KEY)
+
+
+def s3_get_keras_model(model_name: str):
+      with tempfile.TemporaryDirectory() as tempdir:
+        s3fs = get_aws3_fs()
+        # Fetch and save the zip file to the temporary directory
+        s3fs.get(f"{BUCKET_NAME}/{model_name}.h5", f"{tempdir}/{model_name}.h5")
+        # Load the keras model from the temporary directory
+        return keras.models.load_model(f"{tempdir}/{model_name}.h5")
 
 
 # def predict(title,text,subject):
