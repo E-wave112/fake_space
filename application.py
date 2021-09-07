@@ -1,9 +1,7 @@
 from fastapi import FastAPI,HTTPException,Query
 from typing import Optional,List,Dict
 from pydantic import BaseModel
-from decouple import config
-import numpy as np
-   
+from model import predict
 
 
 tags_metadata= [{
@@ -37,15 +35,14 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
     text = text_inputs.text
     subject = text_inputs.subject
 
-    # todo import the correct predictor
-    # # labels_pred = np.array([title,text,subject])
-    # prediction_res = predict(title,text,subject)
+    # import the correct predictor
+    prediction_res = predict(title,text,subject)
 
-    # if not prediction_res:
-    #     raise HTTPException(status_code=404,detail="model not found")
 
-    # PredictedModel.text = text
-    # PredictedModel.prediction = prediction_res
+    if not prediction_res:
+        raise HTTPException(status_code=404,detail="model not found")
 
-    return {"results":"hello friend"}
+    PredictedModel.text = text
+    PredictedModel.prediction = prediction_res
 
+    return {"predictions":prediction_res}
