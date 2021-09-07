@@ -5,8 +5,7 @@ from decouple import config
 import numpy as np
    
 
-##data fields 
-##data_process = df[['title','text','subject']]
+
 tags_metadata= [{
         "name": "predict",
         "description": "Accepts a list(which consists of title,text and subject) and predicts whether \
