@@ -46,3 +46,5 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
     PredictedModel.prediction = prediction_res
 
     return {"predictions":prediction_res}
+
+    
