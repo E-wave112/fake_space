@@ -37,7 +37,8 @@ async def predict_model(title:str,text:str,subject:str, email:Optional[str]=Quer
     # text_inputs:NewsModel
 
     # import the correct predictor
-    prediction_res = predict(title,text,subject)
+    args_dict = {"title":title,"text":text,"subject":subject}
+    prediction_res = predict(args_dict)
 
 
     if not prediction_res:
