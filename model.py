@@ -39,3 +39,4 @@ def predict(args_dict:dict):
     text_predict=loaded_model.predict(args_dict)
     return text_predict
 
+
