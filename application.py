@@ -31,6 +31,7 @@ title="Fake News predictor",
 
 @app.post('/predict',status_code=200,tags=['predict'])
 async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
+    
     title = tokenize_texts(text_inputs.title)
     text = tokenize_texts(text_inputs.text)
     subject = tokenize_texts(text_inputs.subject)

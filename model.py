@@ -34,9 +34,8 @@ def s3_load_keras_model(model_name: str):
 
 # predictor helper function
 def predict(args_dict:dict):
-    # args_array = np.array([title,text,subject])
     loaded_model = s3_load_keras_model("nlp_model")
-    text_predict=loaded_model.predict(args_dict)
+    text_predict=np.argmax(loaded_model.predict(args_dict),axis=-1)
     return text_predict
 
 
