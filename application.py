@@ -2,7 +2,7 @@ from fastapi import FastAPI,HTTPException,Query
 from typing import Optional,List,Dict
 from pydantic import BaseModel
 from model import predict
-
+from utils import tokenize_texts
 
 tags_metadata= [{
         "name": "predict",
@@ -30,10 +30,10 @@ title="Fake News predictor",
 
 
 @app.post('/predict',status_code=200,tags=['predict'])
-async def predict_model(title:str,text:str,subject:str, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
-    # title = text_inputs.title
-    # text = text_inputs.text
-    # subject = text_inputs.subject
+async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
+    title = tokenize_texts(text_inputs.title)
+    text = tokenize_texts(text_inputs.text)
+    subject = tokenize_texts(text_inputs.subject)
     # text_inputs:NewsModel
 
     # import the correct predictor
