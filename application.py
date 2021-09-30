@@ -31,23 +31,33 @@ title="Fake News predictor",
 
 @app.post('/predict',status_code=200,tags=['predict'])
 async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
+    try:
     
-    title = text_inputs.title
-    text = text_inputs.text
-    subject = text_inputs.subject
-    # text_inputs:NewsModel
+        title = text_inputs.title
+        text = text_inputs.text
+        subject = text_inputs.subject
+        # text_inputs:NewsModel
 
-    # import the correct predictor
-    args_dict = {"title":tokenize_texts([title]),"text":tokenize_texts([text]),"subject":tokenize_texts([subject])}
-    prediction_res = predict(args_dict)
+        # import the correct predictor
+        args_dict = {"title":tokenize_texts([title]),"text":tokenize_texts([text]),"subject":tokenize_texts([subject])}
+        prediction_res = predict(args_dict)
 
 
-    if not prediction_res:
-        raise HTTPException(status_code=404,detail="model not found")
+        # if not prediction_res:
+        #     raise HTTPException(status_code=404,detail="model not found")
 
-    # PredictedModel.text = text
-    # PredictedModel.prediction = prediction_res
+        # PredictedModel.text = text
+        # PredictedModel.prediction = prediction_res
 
-    return {"predictions":prediction_res}
+        return {"predictions":prediction_res}
+
+    except HTTPException as h:
+        print(h)
+        return {"error":h}
+
+
+# drive links
+
+
 
     
