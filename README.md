@@ -22,7 +22,24 @@ $ pip install -r requirements.txt
 * run the server via the command
 
 ```
-$ uvicorn application:app
+$ uvicorn application:app --reload
 ```
 
 * The server will be running on http://localhost:8000
+
+
+### Build the initial docker image
+```
+$ docker-compose up --build
+```
+### Running the Dev Docker container
+
+To run the application, use the following command:
+
+```
+$ docker-compose up
+```
+* The app will be running at http://127.0.0.1:8000
+* It is not recommended to use alpine based images for this project(or most of any other python projects) and here's [why](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#-alpine-python-warning)
+
+* A useful resource on how to push your docker image to [DockerHub](https://hub.docker.com)  can be found [here](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
