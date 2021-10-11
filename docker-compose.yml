@@ -1,0 +1,26 @@
+version: "1.0"
+
+services:
+  web: 
+    image: ewave112/fakecontainer:dev
+    build:
+      context: .
+      target: dev
+    container_name: fake_space
+    restart: always
+    ports: 
+      - "8000:8000"
+    volumes: 
+      - .:/app
+    env_file: 
+      - .env
+    environment:
+      - AWS_ID=${AWS_ID}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+    networks: 
+      - fake_space_network
+
+
+networks: 
+  nodecommerce-network:
+    name: fake_space_network
