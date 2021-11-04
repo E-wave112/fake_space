@@ -1,9 +1,13 @@
-import keras
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
 # declare the tokenizer object
-tokenizer = Tokenizer()
+max_words = 8192
+tokenizer = Tokenizer(
+    num_words = max_words,
+    filters = '!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n', 
+    lower=True
+)
 
 MAX_SEQUENCE_LENGTH = 150
 # helper function to tokenize inputs

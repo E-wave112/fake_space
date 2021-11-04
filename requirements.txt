@@ -19,9 +19,6 @@ fastapi==0.68.1
 flatbuffers==1.12
 fsspec==2021.8.1
 gast==0.4.0
-google-auth==1.35.0
-google-auth-oauthlib==0.4.6
-google-pasta==0.2.0
 grpcio==1.40.0
 h5py==3.1.0
 idna==2.10
@@ -35,7 +32,6 @@ MarkupSafe==2.0.1
 multidict==5.1.0
 murmurhash==1.0.5
 numpy==1.19.5
-oauthlib==3.1.1
 opt-einsum==3.3.0
 packaging==20.9
 pathy==0.5.2
@@ -56,7 +52,6 @@ scikit-learn==0.24.2
 scipy==1.6.3
 six==1.15.0
 smart-open==3.0.0
-spacy-legacy==3.0.5
 srsly==2.4.1
 starlette==0.14.2
 tensorboard==2.6.0
