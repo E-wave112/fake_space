@@ -66,6 +66,7 @@ tqdm==4.60.0
 typer==0.3.2
 typing-extensions==3.7.4.3
 urllib3==1.26.4
+uvicorn
 wasabi==0.8.2
 Werkzeug==2.0.1
 wrapt==1.12.1
