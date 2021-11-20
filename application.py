@@ -31,6 +31,8 @@ title="Fake News predictor",
 
 @app.post('/predict',status_code=200,tags=['predict'])
 async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@doe.com',min_length=3,max_length=100,regex="^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$")):
+    # create an empty dictionary for the outputs
+    outputs = dict()
     try:
     
         title = text_inputs.title
@@ -41,6 +43,14 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
         # import the correct predictor
         args_dict = {"title":tokenize_texts([title]),"text":tokenize_texts([text]),"subject":tokenize_texts([subject])}
         prediction_res = predict(args_dict)
+        # convert the predicted value to a list so that fastapi jsonable encode can return it as a response
+        prediction_res_list = prediction_res.tolist()
+        if prediction_res_list[0] == 1:
+            output["score"] = 1
+            output["status"] = "The news seems genuine"
+        else:
+            output["score"] = 0
+            output["status"] = "The news seems fake"
 
 
         # if not prediction_res:
@@ -49,15 +59,8 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
         # PredictedModel.text = text
         # PredictedModel.prediction = prediction_res
 
-        return {"predictions":prediction_res}
+        return output
 
     except HTTPException as h:
         print(h)
         return {"error":h}
-
-
-# drive links
-
-
-
-    
