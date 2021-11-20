@@ -1,11 +1,10 @@
-version: "1.0"
+version: "2.3"
 
 services:
   web: 
     image: ewave112/fakecontainer:dev
     build:
       context: .
-      target: dev
     container_name: fake_space
     restart: always
     ports: 
@@ -22,5 +21,5 @@ services:
 
 
 networks: 
-  nodecommerce-network:
+  fake_space_network:
     name: fake_space_network
