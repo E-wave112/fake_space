@@ -46,11 +46,11 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
         # convert the predicted value to a list so that fastapi jsonable encode can return it as a response
         prediction_res_list = prediction_res.tolist()
         if prediction_res_list[0] == 1:
-            output["score"] = 1
-            output["status"] = "The news seems genuine"
+            outputs["score"] = 1
+            outputs["status"] = "The news seems genuine"
         else:
-            output["score"] = 0
-            output["status"] = "The news seems fake"
+            outputs["score"] = 0
+            outputs["status"] = "The news seems fake"
 
 
         # if not prediction_res:
@@ -59,7 +59,7 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
         # PredictedModel.text = text
         # PredictedModel.prediction = prediction_res
 
-        return output
+        return outputs
 
     except HTTPException as h:
         print(h)
