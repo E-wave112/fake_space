@@ -1,10 +1,10 @@
-version: "2.3"
+version: "3.3"
 
 services:
   web: 
     image: ewave112/fakecontainer:dev
     build:
-      context: .
+      context: ./
     container_name: fake_space
     restart: always
     ports: 
@@ -19,7 +19,7 @@ services:
     networks: 
       - fake_space_network
 
-
+      
 networks: 
   fake_space_network:
     name: fake_space_network
