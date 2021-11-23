@@ -1,8 +1,10 @@
 from fastapi import FastAPI,HTTPException,Query
 from typing import Optional,List,Dict
 from pydantic import BaseModel
-from model import predict
-from utils import tokenize_texts
+from main.model import predict
+from main.utils import tokenize_texts
+from db.add_data import add_user
+from sqlalchemy.orm import Session
 
 tags_metadata= [{
         "name": "predict",
@@ -58,7 +60,8 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
 
         # PredictedModel.text = text
         # PredictedModel.prediction = prediction_res
-
+        user_schema = {"email":email,"title":title,"text":text,"subject":subject,"prediction_score":outputs["score"],"prediction":outputs["status"]}
+        add_user(Session,user_schema)
         return outputs
 
     except HTTPException as h:

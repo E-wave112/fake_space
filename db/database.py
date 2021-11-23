@@ -4,11 +4,11 @@ from sqlalchemy.orm import sessionmaker
 from decouple import config
 
 ##connect the db url
-MYSQLALCHEMY_DATABASE_URL = config("MYSQLALCHEMY_DATABASE_URL")
+POSTGRES_DATABASE_URL = config("POSTGRES_URI")
 
 ##create the DB engine
 engine = create_engine(
-    MYSQLALCHEMY_DATABASE_URL
+    POSTGRES_DATABASE_URL
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
