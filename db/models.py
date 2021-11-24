@@ -10,7 +10,7 @@ Base = declarative_base()
 class Output(Base):
     __tablename__ = "outputs"
 
-    instance_id = Column(Integer, primary_key=True, index=True,autoincrement=True)
+    instance_id = Column(Integer, primary_key=True, index=True,autoincrement=True,default=1)
     email = Column(String, unique=True, index=True)
     title = Column(String)
     text = Column(String)
