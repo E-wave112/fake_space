@@ -9,7 +9,7 @@ POSTGRES_DATABASE_URL = config("POSTGRES_URI")
 ##create the DB engine
 engine = create_engine(
     POSTGRES_DATABASE_URL
-)
+).connect()
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
