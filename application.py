@@ -73,6 +73,7 @@ async def predict_model(text_inputs:NewsModel, email:Optional[str]=Query('joane@
         # PredictedModel.text = text
         # PredictedModel.prediction = prediction_res
         user_schema = {"email":email,"title":title,"text":text,"subject":subject,"prediction_score":outputs["score"],"prediction":outputs["status"]}
+        print(user_schema)
         add_user(db,user_schema)
         return outputs
 
