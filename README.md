@@ -64,3 +64,6 @@ $ docker-compose up
 * It is not recommended to use alpine based images for this project(or most of any other python projects) and here's [why](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker#-alpine-python-warning)
 
 * A useful resource on how to push your docker image to [DockerHub](https://hub.docker.com)  can be found [here](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
+
+
+**Wanna check out my other machine learning projects and implementations?**  check them out [here](https://github.com/E-wave112/ml_proj1).
