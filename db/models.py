@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Integer, String,TIMESTAMP
+from sqlalchemy import Column, Integer, String, TIMESTAMP
 import datetime
+
 # from .database import Base
 from sqlalchemy.ext.declarative import declarative_base
-Base = declarative_base()
 
+Base = declarative_base()
 
 
 class Output(Base):
@@ -16,4 +17,4 @@ class Output(Base):
     subject = Column(String)
     prediction_score = Column(Integer)
     prediction = Column(String)
-    dateCreated = Column(TIMESTAMP,default=datetime.datetime.utcnow())
+    dateCreated = Column(TIMESTAMP, default=datetime.datetime.utcnow())
