@@ -66,4 +66,4 @@ $ docker-compose up
 * A useful resource on how to push your docker image to [DockerHub](https://hub.docker.com)  can be found [here](https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html)
 
 
-**Wanna check out my other machine learning projects and implementations?**  check them out [here](https://github.com/E-wave112/ml_proj1).
+**Wanna check out my other machine learning projects and implementations?**  see all of them [here](https://github.com/E-wave112/ml_proj1).
