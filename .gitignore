@@ -8,6 +8,7 @@ pydant.py
 test_s3.py
 transform.py
 .mypy_cache
+db_create.py
 
 __pycache__/
 .vscode

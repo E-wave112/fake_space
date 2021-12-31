@@ -19,6 +19,7 @@ fastapi==0.68.1
 flatbuffers==1.12
 fsspec==2021.8.1
 gast==0.4.0
+gunicorn
 grpcio==1.40.0
 h5py
 idna==2.10

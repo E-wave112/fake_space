@@ -17,4 +17,4 @@ class Output(Base):
     subject = Column(String)
     prediction_score = Column(Integer)
     prediction = Column(String)
-    dateCreated = Column(TIMESTAMP, default=datetime.datetime.utcnow())
+    # dateCreated = Column(TIMESTAMP, default=datetime.datetime.utcnow())

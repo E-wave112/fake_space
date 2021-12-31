@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from decouple import config
 
 ##connect the db url
-POSTGRES_DATABASE_URL = config("DATABASE_URL")
+POSTGRES_DATABASE_URL = config("DB_URI")
 
 ##create the DB engine
 engine = create_engine(POSTGRES_DATABASE_URL).connect()
