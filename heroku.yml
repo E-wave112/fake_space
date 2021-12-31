@@ -1,0 +1,13 @@
+setup:
+  addons:
+    - plan: heroku-postgresql:hobby-dev
+      as: POSTGRES
+  config:
+    APP_NAME: fake-space
+build:
+  docker:
+    web: Dockerfile
+  config:
+    ENV: production
+run:
+  web: uvicorn application:app --reload
