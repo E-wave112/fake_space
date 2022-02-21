@@ -10,6 +10,13 @@
 
 * The model has been trained on a seperate jupyter notebook which you can find [here](https://github.com/E-wave112/ml_proj1/blob/master/aws_nlp.ipynb) and loaded to the model file via [Keras](https://keras.io/api/models/model/).
 
+## Metrics 
+- NB: these metrics improve over time as the model keeps learning from new data and hyperparameters are tweaked
+```
+Area_Under_the_Curve(AUC) = 0.99705
+Accuracy=0.9875
+```
+
  ### Running the Project
 
 To get started with this project clone the repo by running the command git clone https://github.com/E-wave112/fake_space.git or downloading the zip file.
