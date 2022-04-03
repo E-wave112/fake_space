@@ -2,7 +2,7 @@
 
 * This AI-powered API predicts whether a news article is authentic or fake based on its title, content(text) and subject(news category).
 
-* DATA_SOURCE:[University of Victoria ISOT Research Lab](https://www.uvic.ca/engineering/ece/isot/datasets/fake-news/index.php).
+* DATA_SOURCE: [University of Victoria ISOT Research Lab](https://www.uvic.ca/engineering/ece/isot/datasets/fake-news/index.php).
 
 * The Dataset consists of a seperate True.csv(for the part of the data that reads true that a particular news is fake) and False.csv(For the part of the data that reads false that a particular news is fake).
 
@@ -38,13 +38,13 @@ $ uvicorn application:app --reload
 
 ### Demo Example
 
-* The snapshots below shows an instance where the api gets a requested with the right inputs and then the machine learning system then infers the authenticity of the news. it all happens in a two way process!
+* The snapshots below shows an instance where the api gets a request with the right inputs and then the machine learning system then infers the authenticity of the news. it all happens in a two way process!
 
 - Step 1 : user inputs the relevant data
 
 ![request_image](snapshot_1.png)
 
-- Step 2 : the systems predicts the authenticity of the news (score of 1 indicates an authentic news while a score of 0 indicates otherwise)
+- Step 2 : the system predicts the authenticity of the news (score of 1 indicates an authentic news while a score of 0 indicates otherwise)
 
 ![response_image](snapshot_2.png)
 
