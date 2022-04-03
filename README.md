@@ -52,7 +52,7 @@ $ uvicorn application:app --reload
 
 
 
-## Containerizing the application
+## Containerizing the API
 
 
 ### Build the initial docker image
