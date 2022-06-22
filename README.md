@@ -20,7 +20,7 @@ Accuracy=0.9875
  ### Running the Project
 
 To get started with this project clone the repo by running the command git clone https://github.com/E-wave112/fake_space.git or downloading the zip file.
- * create and activate your virtual environment more guides on how to do that [here](https://realpython.com/python-virtual-environments-a-primer/).
+ * create and activate your virtual environment. more guides on how to do that [here](https://realpython.com/python-virtual-environments-a-primer/).
 
 * In the root of the project install the required dependencies
 
@@ -38,9 +38,9 @@ $ uvicorn application:app --reload
 
 ### Demo Example
 
-* The snapshots below shows an instance where the api gets a request with the right inputs and then the machine learning system then infers the authenticity of the news. it all happens in a two way process!
+* The snapshots below shows an instance where the api gets a request with the right inputs and then the machine learning system infers the authenticity of the news. it all happens in a two-way process!
 
-- Step 1 : user inputs the relevant data
+- Step 1 : user inputs the relevant data.
 
 ![request_image](snapshot_1.png)
 
@@ -49,11 +49,7 @@ $ uvicorn application:app --reload
 ![response_image](snapshot_2.png)
 
 
-
-
-
 ## Containerizing the API
-
 
 ### Build the initial docker image
 ```
