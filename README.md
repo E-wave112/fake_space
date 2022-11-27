@@ -12,8 +12,9 @@
 
 ## Metrics 
 - NB: these metrics improve over time as the model keeps learning from new data and hyperparameters are tweaked
+
 ```
-Area_Under_the_Curve(AUC) = 0.99705
+Area_Under_the_Curve(AUC)=0.99705
 Accuracy=0.9875
 ```
 
