@@ -16,5 +16,5 @@ s3fs==2021.8.1
 sqlalchemy
 starlette==0.14.2
 tensorflow-cpu
-urllib3==1.26.5
+urllib3==1.26.17
 uvicorn
