@@ -2,7 +2,7 @@ aiobotocore==1.4.1
 boto3==1.17.76
 botocore
 certifi==2020.12.5
-fastapi==0.68.1
+fastapi==0.109.1
 gunicorn
 Keras-Preprocessing==1.1.2
 numpy==1.19.2
