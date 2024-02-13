@@ -1,4 +1,4 @@
-aiobotocore==1.4.1
+aiobotocore==2.9.1
 boto3==1.17.76
 botocore
 certifi==2020.12.5
