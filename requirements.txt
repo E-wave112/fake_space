@@ -6,7 +6,7 @@ fastapi==0.68.1
 gunicorn
 Keras-Preprocessing==1.1.2
 numpy==1.19.2
-keras==2.8.0rc0
+keras==2.13.1rc0
 psycopg2-binary
 pydantic==1.7.4
 python-dateutil==2.8.1
